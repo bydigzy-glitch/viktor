@@ -28,6 +28,8 @@ struct SettingsView: View {
     // Hotkey
     @State private var hotkeyFlags: UInt    = AppState.shared.hotkeyFlags
     @State private var hotkeyCode: UInt16   = AppState.shared.hotkeyCode
+    @State private var captureFlags: UInt   = AppState.shared.captureHotkeyFlags
+    @State private var captureCode: UInt16  = AppState.shared.captureHotkeyCode
 
     // Vercel project filter
     @State private var vercelProjects: [String] = []
@@ -330,6 +332,45 @@ struct SettingsView: View {
                                     .font(.system(size: 11))
                                     .foregroundColor(.secondary)
                             }
+                        }
+                    }
+                    .padding(6)
+                }
+
+                // MARK: Quick capture
+                GroupBox("Quick capture") {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Toggle("Open capture field with shortcut", isOn: $state.captureHotkeyEnabled)
+                        if state.captureHotkeyEnabled {
+                            HStack(spacing: 8) {
+                                Text("Shortcut")
+                                    .frame(width: 70, alignment: .leading)
+                                ShortcutRecorderButton(flags: $captureFlags, code: $captureCode)
+                                    .onChange(of: captureFlags) { _, v in state.captureHotkeyFlags = v }
+                                    .onChange(of: captureCode)  { _, v in state.captureHotkeyCode  = v }
+                                Text("works from any app")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        HStack(spacing: 8) {
+                            Text("Reminders")
+                                .frame(width: 70, alignment: .leading)
+                            Text(CalendarBridge.shared.statusLabel(.reminder))
+                                .foregroundColor(.secondary)
+                            Spacer()
+                            Text("Calendar")
+                            Text(CalendarBridge.shared.statusLabel(.event))
+                                .foregroundColor(.secondary)
+                        }
+                        .font(.system(size: 12))
+                        HStack {
+                            Text("Notes and links stay on this Mac. Reminders and events go to Apple Reminders / Calendar.")
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Spacer()
+                            Button("Show file") { CaptureStore.revealFile() }
                         }
                     }
                     .padding(6)

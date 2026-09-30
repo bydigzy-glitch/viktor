@@ -140,7 +140,7 @@ final class IslandWindowController: NSWindowController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] newView in
                 guard let self else { return }
-                if newView == .prompt {
+                if newView == .prompt || newView == .capture {
                     self.islandPanel.makeKey()
                 }
             }
@@ -332,6 +332,13 @@ final class IslandWindowController: NSWindowController {
         state.lastActivity = .now
     }
 
+    /// Quick capture: open the field from anywhere (hotkey, menu bar) and give it keyboard focus.
+    func openCapture() {
+        fsm.cancelTimers()   // don't let a pending compact→hidden timer close the field mid-typing
+        expand(to: .capture)
+        islandPanel.makeKey()
+    }
+
     func collapse() {
         state.isPinned = false
         finishedPinTimer?.cancel()
@@ -450,15 +457,37 @@ final class IslandWindowController: NSWindowController {
             finishDrag()
         }
 
-        // Global hotkey to show island
+        // Global hotkeys: show island / quick capture
         NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
             Task { @MainActor in
-                guard let self, self.state.hotkeyEnabled else { return }
+                guard let self else { return }
                 let pressed = event.modifierFlags.intersection([.command, .control, .option, .shift]).rawValue
+                if self.state.captureHotkeyEnabled,
+                   pressed == self.state.captureHotkeyFlags, event.keyCode == self.state.captureHotkeyCode {
+                    self.openCapture()
+                    return
+                }
+                guard self.state.hotkeyEnabled else { return }
                 guard pressed == self.state.hotkeyFlags, event.keyCode == self.state.hotkeyCode else { return }
                 if self.state.mode == .hidden || self.state.mode == .compact {
                     self.expand(to: .overview)
                 }
+            }
+        }
+
+        // Quick capture reminder due → Mochi pops out with the reminder, then tucks back in
+        NotificationCenter.default.addObserver(forName: .captureReminderDue, object: nil, queue: .main) { [weak self] note in
+            guard let self, let title = note.object as? String else { return }
+            // Never interrupt an alert or something the user is typing
+            let busy: Set<IslandView> = [.approval, .question, .mail, .prompt, .capture]
+            if self.state.mode == .expanded && busy.contains(self.state.view) { return }
+            self.state.noteMessage = "Reminder: \(title)"
+            self.expand(to: .note)
+            SoundEngine.shared.play("question")
+            NotificationCenter.default.post(name: .triggerEmote, object: BotEmote.surprised)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 8) { [weak self] in
+                guard let self, self.state.view == .note, self.state.mode == .expanded else { return }
+                self.collapse()
             }
         }
 

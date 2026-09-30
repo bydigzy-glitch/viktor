@@ -26,6 +26,14 @@
 	<string>Pour lire le titre de la fenêtre active et l'attacher comme contexte.</string>
 	<key>NSAppleEventsUsageDescription</key>
 	<string>Pour sauter au terminal et envoyer des mails.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Quick capture adds your events to Apple Calendar and shows today's agenda.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Quick capture adds your events to Apple Calendar and shows today's agenda.</string>
+	<key>NSRemindersFullAccessUsageDescription</key>
+	<string>Quick capture adds your reminders to Apple Reminders.</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Quick capture adds your reminders to Apple Reminders.</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
 	<key>NSSupportsAutomaticGraphicsSwitching</key>

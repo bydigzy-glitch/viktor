@@ -116,6 +116,17 @@ final class AppState: ObservableObject {
         didSet { UserDefaults.standard.set(Int(hotkeyCode), forKey: "hotkeyCode") }
     }
 
+    // Quick capture hotkey (default ⌃⌥Space) — opens the capture field from anywhere
+    @Published var captureHotkeyEnabled: Bool = true {
+        didSet { UserDefaults.standard.set(captureHotkeyEnabled, forKey: "captureHotkeyEnabled") }
+    }
+    var captureHotkeyFlags: UInt = NSEvent.ModifierFlags([.control, .option]).rawValue {
+        didSet { UserDefaults.standard.set(Int(captureHotkeyFlags), forKey: "captureHotkeyFlags") }
+    }
+    var captureHotkeyCode: UInt16 = 49 {  // space
+        didSet { UserDefaults.standard.set(Int(captureHotkeyCode), forKey: "captureHotkeyCode") }
+    }
+
     // Vercel project filter — empty = watch all projects
     @Published var vercelProjectFilter: Set<String> = [] {
         didSet {
@@ -196,6 +207,9 @@ final class AppState: ObservableObject {
         if let v = ud.object(forKey: "hotkeyEnabled") as? Bool  { hotkeyEnabled = v }
         if let v = ud.object(forKey: "hotkeyFlags")   as? Int   { hotkeyFlags = UInt(v) }
         if let v = ud.object(forKey: "hotkeyCode")    as? Int   { hotkeyCode = UInt16(v) }
+        if let v = ud.object(forKey: "captureHotkeyEnabled") as? Bool { captureHotkeyEnabled = v }
+        if let v = ud.object(forKey: "captureHotkeyFlags")   as? Int  { captureHotkeyFlags = UInt(v) }
+        if let v = ud.object(forKey: "captureHotkeyCode")    as? Int  { captureHotkeyCode = UInt16(v) }
         if let d = ud.data(forKey: "vercelProjectFilter"),
            let a = try? JSONDecoder().decode([String].self, from: d) { vercelProjectFilter = Set(a) }
         if let d = ud.data(forKey: "n8nWorkflowFilter"),

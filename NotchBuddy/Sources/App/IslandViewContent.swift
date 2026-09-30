@@ -24,6 +24,8 @@ struct IslandViewContent: View {
         case .result:    ResultView(state: state)
         case .note:      NoteView(state: state)
         case .settings:  SettingsIslandView(state: state)
+        case .capture:   CaptureView(state: state)
+        case .inbox:     InboxView(state: state)
         case .greeting:  EmptyView()  // GreetingCanvasView overlaid in IslandRootView
         }
     }

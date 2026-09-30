@@ -28,6 +28,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         let menu = NSMenu()
         menu.addItem(withTitle: "Open Coucou", action: #selector(openIsland), keyEquivalent: "")
+        menu.addItem(withTitle: "Quick Capture", action: #selector(openCapture), keyEquivalent: "")
+        menu.addItem(withTitle: "Inbox", action: #selector(openInbox), keyEquivalent: "")
         menu.addItem(.separator())
         menu.addItem(withTitle: "Settings…", action: #selector(openSettings), keyEquivalent: ",")
         menu.addItem(.separator())
@@ -40,6 +42,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc private func openIsland() {
         islandController?.expand(to: .overview)
+    }
+
+    @objc private func openCapture() {
+        islandController?.openCapture()
+    }
+
+    @objc private func openInbox() {
+        islandController?.expand(to: .inbox)
     }
 
     private var settingsWindow: NSWindow?
@@ -71,6 +81,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         StripePoller.shared.start()
         CalcomPoller.shared.start()
         NotionPoller.shared.start()
+        _ = CaptureStore.shared   // loads captures + arms the next reminder nudge
         NotificationCenter.default.addObserver(self, selector: #selector(openSettings),
                                                name: .openFullSettings, object: nil)
     }

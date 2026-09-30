@@ -27,6 +27,11 @@
 		2F36E3C6C073E968A682AFA4 /* NotionPoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE03E03D1804B0B92C5C2DAD /* NotionPoller.swift */; };
 		3756B7E1A55D9CEC8C4D34A4 /* IslandStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8212018F09EA1E96FBD63CD /* IslandStateMachine.swift */; };
 		3F19756A396F125EC711247F /* IslandTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3CE3617E9D336DDBA10F7A /* IslandTypes.swift */; };
+		0797CD7D66E58696695C3EAD /* CalendarBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E94BA7D49B44FD0E06EC9B0 /* CalendarBridge.swift */; };
+		883015DA0F4D706B2F1E5F3F /* CaptureModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE82E60DF5866E450E08A21 /* CaptureModels.swift */; };
+		62D2435E9DD42D5E38EEEB13 /* CaptureParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30740D9342CB6A0D4EB9B2 /* CaptureParser.swift */; };
+		1B8DA9FA15C61D190BB04754 /* CaptureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AEF63E4E95ABEE5218F23E /* CaptureStore.swift */; };
+		9DBCB1CF77872A3178C4115C /* CaptureViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789E112B665721C48316B66F /* CaptureViews.swift */; };
 		4117E7C8AA231AAE36E7509D /* UploadCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B241B043223AFBBFB7418A5E /* UploadCanvasView.swift */; };
 		4F1E0B3C838DA3CD6F864BC0 /* CalcomPoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104222B3F17BA5E8DEA5277 /* CalcomPoller.swift */; };
 		56BE8C733F10A030A638FB60 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1A7D5CBE2AC084A10C5FF3 /* SettingsView.swift */; };
@@ -54,6 +59,11 @@
 		CA3321C14A11FED94E48B3E3 /* IslandRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A1A8206F73376F4CAF2057 /* IslandRootView.swift */; };
 		CD8DECA66B9E09C97E469DB9 /* BotCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29F4C0B02BE91654D02AA0C /* BotCanvasView.swift */; };
 		D82E93014C8087AE81511E40 /* IslandTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3CE3617E9D336DDBA10F7A /* IslandTypes.swift */; };
+		C2251AAACD917EDBB316AE99 /* CalendarBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E94BA7D49B44FD0E06EC9B0 /* CalendarBridge.swift */; };
+		AF08E1A71DD5A68D1957C677 /* CaptureModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE82E60DF5866E450E08A21 /* CaptureModels.swift */; };
+		FA0A6E221BD754171A5247C9 /* CaptureParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B30740D9342CB6A0D4EB9B2 /* CaptureParser.swift */; };
+		F8E8A40C756F17F85FAA3C06 /* CaptureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AEF63E4E95ABEE5218F23E /* CaptureStore.swift */; };
+		83E1C9AABFFA7C65BDD08D19 /* CaptureViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789E112B665721C48316B66F /* CaptureViews.swift */; };
 		DCAC390FF9EC65B945A15B24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506824380E9C80B9BC6DCE72 /* Assets.xcassets */; };
 		DE05D09A32117582AC93A24A /* NotchBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BD8F3CAA60CF37640759E1 /* NotchBuddyApp.swift */; };
 		E4B9986674F4D425826F15A8 /* StripePoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF78999D68D56ADE4CEFBE2 /* StripePoller.swift */; };
@@ -81,6 +91,11 @@
 		7C1A7D5CBE2AC084A10C5FF3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8CB8B6E5E9DA6164F979E88F /* GithubPoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubPoller.swift; sourceTree = "<group>"; };
 		8D3CE3617E9D336DDBA10F7A /* IslandTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandTypes.swift; sourceTree = "<group>"; };
+		8E94BA7D49B44FD0E06EC9B0 /* CalendarBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBridge.swift; sourceTree = "<group>"; };
+		8AE82E60DF5866E450E08A21 /* CaptureModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureModels.swift; sourceTree = "<group>"; };
+		4B30740D9342CB6A0D4EB9B2 /* CaptureParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureParser.swift; sourceTree = "<group>"; };
+		B6AEF63E4E95ABEE5218F23E /* CaptureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureStore.swift; sourceTree = "<group>"; };
+		789E112B665721C48316B66F /* CaptureViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViews.swift; sourceTree = "<group>"; };
 		A14A61070D293AB4BBA303F7 /* NotchBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotchBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A29F4C0B02BE91654D02AA0C /* BotCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotCanvasView.swift; sourceTree = "<group>"; };
 		A83D5410BD030B243ADDCFF4 /* ClaudeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeService.swift; sourceTree = "<group>"; };
@@ -115,6 +130,11 @@
 				15A1A8206F73376F4CAF2057 /* IslandRootView.swift */,
 				D8212018F09EA1E96FBD63CD /* IslandStateMachine.swift */,
 				8D3CE3617E9D336DDBA10F7A /* IslandTypes.swift */,
+				8E94BA7D49B44FD0E06EC9B0 /* CalendarBridge.swift */,
+				8AE82E60DF5866E450E08A21 /* CaptureModels.swift */,
+				4B30740D9342CB6A0D4EB9B2 /* CaptureParser.swift */,
+				B6AEF63E4E95ABEE5218F23E /* CaptureStore.swift */,
+				789E112B665721C48316B66F /* CaptureViews.swift */,
 				FA02B08886939FF6FE0475DD /* IslandViewContent.swift */,
 				D710BD7834228045869D0184 /* IslandWindowController.swift */,
 				B89DA1A0C21AE3535A1760BB /* N8nPoller.swift */,
@@ -283,6 +303,11 @@
 				CA3321C14A11FED94E48B3E3 /* IslandRootView.swift in Sources */,
 				5B9A00AFB0837731FA678E4E /* IslandStateMachine.swift in Sources */,
 				3F19756A396F125EC711247F /* IslandTypes.swift in Sources */,
+				0797CD7D66E58696695C3EAD /* CalendarBridge.swift in Sources */,
+				883015DA0F4D706B2F1E5F3F /* CaptureModels.swift in Sources */,
+				62D2435E9DD42D5E38EEEB13 /* CaptureParser.swift in Sources */,
+				1B8DA9FA15C61D190BB04754 /* CaptureStore.swift in Sources */,
+				9DBCB1CF77872A3178C4115C /* CaptureViews.swift in Sources */,
 				065FCE817315454DE3F85F25 /* IslandViewContent.swift in Sources */,
 				091EC3B2F1060D7EE1317E4E /* IslandWindowController.swift in Sources */,
 				0A267EE2955C7AD8E02A296C /* N8nPoller.swift in Sources */,
@@ -316,6 +341,11 @@
 				B605F976F4141435F27CF266 /* IslandRootView.swift in Sources */,
 				3756B7E1A55D9CEC8C4D34A4 /* IslandStateMachine.swift in Sources */,
 				D82E93014C8087AE81511E40 /* IslandTypes.swift in Sources */,
+				C2251AAACD917EDBB316AE99 /* CalendarBridge.swift in Sources */,
+				AF08E1A71DD5A68D1957C677 /* CaptureModels.swift in Sources */,
+				FA0A6E221BD754171A5247C9 /* CaptureParser.swift in Sources */,
+				F8E8A40C756F17F85FAA3C06 /* CaptureStore.swift in Sources */,
+				83E1C9AABFFA7C65BDD08D19 /* CaptureViews.swift in Sources */,
 				68A950E3C23FD612639D9776 /* IslandViewContent.swift in Sources */,
 				C61DDE2EC5FDDB39E4AA3B34 /* IslandWindowController.swift in Sources */,
 				160EDB9D06275E2607DA5151 /* N8nPoller.swift in Sources */,

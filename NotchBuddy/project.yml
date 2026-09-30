@@ -68,6 +68,10 @@ targets:
         NSSupportsAutomaticGraphicsSwitching: YES
         NSAppleEventsUsageDescription: "Pour sauter au terminal et envoyer des mails."
         NSAccessibilityUsageDescription: "Pour lire le titre de la fenêtre active et l'attacher comme contexte."
+        NSRemindersFullAccessUsageDescription: "Quick capture adds your reminders to Apple Reminders."
+        NSRemindersUsageDescription: "Quick capture adds your reminders to Apple Reminders."
+        NSCalendarsFullAccessUsageDescription: "Quick capture adds your events to Apple Calendar and shows today's agenda."
+        NSCalendarsUsageDescription: "Quick capture adds your events to Apple Calendar and shows today's agenda."
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: fr.louisraille.NotchBuddy
@@ -102,6 +106,10 @@ targets:
         NSSupportsAutomaticGraphicsSwitching: YES
         LSApplicationCategoryType: public.app-category.developer-tools
         ITSAppUsesNonExemptEncryption: NO
+        NSRemindersFullAccessUsageDescription: "Quick capture adds your reminders to Apple Reminders."
+        NSRemindersUsageDescription: "Quick capture adds your reminders to Apple Reminders."
+        NSCalendarsFullAccessUsageDescription: "Quick capture adds your events to Apple Calendar and shows today's agenda."
+        NSCalendarsUsageDescription: "Quick capture adds your events to Apple Calendar and shows today's agenda."
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: fr.louisraille.Coucou
