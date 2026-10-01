@@ -21,16 +21,16 @@ struct ParsedCapture: Equatable, Sendable {
 ///   "brand colours: rust + cream"      → note
 enum CaptureParser {
 
-    // NSDataDetector / NSRegularExpression are immutable and documented thread-safe.
-    nonisolated(unsafe) private static let linkDetector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-    nonisolated(unsafe) private static let dateDetector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.date.rawValue)
-    nonisolated(unsafe) private static let timeHint = try? NSRegularExpression(
+    // NSDataDetector / NSRegularExpression are immutable and Sendable.
+    private static let linkDetector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+    private static let dateDetector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.date.rawValue)
+    private static let timeHint = try? NSRegularExpression(
         pattern: #"\d{1,2}:\d{2}|\d{1,2}\s*(am|pm|a\.m\.|p\.m\.|h)\b|\b(noon|midday|midnight|morning|afternoon|evening|tonight)\b|\bat\s+\d{1,2}\b|\d{1,2}\s*[-–]\s*\d{1,2}|\bin\s+(an?|\d+)\s*(min|mins|minutes?|hours?|hrs?|h)\b"#,
         options: [.caseInsensitive])
-    nonisolated(unsafe) private static let reminderLead = try? NSRegularExpression(
+    private static let reminderLead = try? NSRegularExpression(
         pattern: #"^\s*(remind\s+me\s+(to\s+)?|remember\s+(to\s+)?|don'?t\s+forget\s+(to\s+)?|to\s*do:?\s+|todo:?\s+)"#,
         options: [.caseInsensitive])
-    nonisolated(unsafe) private static let eventWords = try? NSRegularExpression(
+    private static let eventWords = try? NSRegularExpression(
         pattern: #"\b(meeting|meet|lunch|dinner|breakfast|brunch|coffee|drinks|shoot|photoshoot|appointment|appt|interview|party|session|class|flight|gig|show|call with|zoom|facetime)\b"#,
         options: [.caseInsensitive])
 

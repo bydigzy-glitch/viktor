@@ -473,14 +473,14 @@ final class IslandWindowController: NSWindowController {
 
         // Quick capture reminder due → Mochi pops out with the reminder, then tucks back in
         NotificationCenter.default.addObserver(forName: .captureReminderDue, object: nil, queue: .main) { [weak self] note in
-            guard let self, let title = note.object as? String else { return }
-            self.showReminderDue(title: title)
+            guard let title = note.object as? String else { return }
+            MainActor.assumeIsolated { self?.showReminderDue(title: title) }   // queue: .main
         }
 
         // Displays plugged/unplugged/rearranged or main display changed → move the island back to the top
         NotificationCenter.default.addObserver(forName: NSApplication.didChangeScreenParametersNotification,
                                                object: nil, queue: .main) { [weak self] _ in
-            self?.repositionToTargetScreen()
+            MainActor.assumeIsolated { self?.repositionToTargetScreen() }   // queue: .main
         }
 
         // Track last external app for window context capture

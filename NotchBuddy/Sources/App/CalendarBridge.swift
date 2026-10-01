@@ -58,7 +58,7 @@ final class CalendarBridge {
 
     private func requestAccess(_ type: EKEntityType) async -> Bool {
         await withCheckedContinuation { (cont: CheckedContinuation<Bool, Never>) in
-            let done: EKEventStoreRequestAccessCompletionHandler = { granted, _ in cont.resume(returning: granted) }
+            let done: @Sendable (Bool, (any Error)?) -> Void = { granted, _ in cont.resume(returning: granted) }
             if type == .reminder {
                 store.requestFullAccessToReminders(completion: done)
             } else {
