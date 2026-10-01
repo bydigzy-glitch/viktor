@@ -1,6 +1,7 @@
 import SwiftUI
 import ServiceManagement
 import AppKit
+import EventKit
 
 struct SettingsView: View {
     @ObservedObject private var state = AppState.shared

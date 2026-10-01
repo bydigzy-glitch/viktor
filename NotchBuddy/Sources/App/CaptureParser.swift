@@ -119,7 +119,7 @@ enum CaptureParser {
             let cuts = [urlRange, kind == .link ? nil : dateRange].compactMap { $0 }
                 .sorted { $0.location > $1.location }
             for r in cuts { mutable.replaceCharacters(in: r, with: " ") }
-            title = mutable as String
+            title = String(mutable)
             if let lead = reminderLead {
                 title = lead.stringByReplacingMatches(in: title, options: [],
                                                       range: NSRange(location: 0, length: (title as NSString).length),

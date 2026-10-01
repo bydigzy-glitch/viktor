@@ -478,17 +478,7 @@ final class IslandWindowController: NSWindowController {
         // Quick capture reminder due → Mochi pops out with the reminder, then tucks back in
         NotificationCenter.default.addObserver(forName: .captureReminderDue, object: nil, queue: .main) { [weak self] note in
             guard let self, let title = note.object as? String else { return }
-            // Never interrupt an alert or something the user is typing
-            let busy: Set<IslandView> = [.approval, .question, .mail, .prompt, .capture]
-            if self.state.mode == .expanded && busy.contains(self.state.view) { return }
-            self.state.noteMessage = "Reminder: \(title)"
-            self.expand(to: .note)
-            SoundEngine.shared.play("question")
-            NotificationCenter.default.post(name: .triggerEmote, object: BotEmote.surprised)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 8) { [weak self] in
-                guard let self, self.state.view == .note, self.state.mode == .expanded else { return }
-                self.collapse()
-            }
+            self.showReminderDue(title: title)
         }
 
         // Track last external app for window context capture
@@ -747,6 +737,23 @@ final class IslandWindowController: NSWindowController {
         }
         confusedRecoveryTimer = recovery
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.3, execute: recovery)
+    }
+
+    // MARK: - Quick capture reminder due (posted by CaptureStore)
+
+    private func showReminderDue(title: String) {
+        // Never interrupt an alert or something the user is typing
+        let busy: Set<IslandView> = [.approval, .question, .mail, .prompt, .capture]
+        if state.mode == .expanded && busy.contains(state.view) { return }
+        state.noteMessage = "Reminder: \(title)"
+        expand(to: .note)
+        SoundEngine.shared.play("question")
+        NotificationCenter.default.post(name: .triggerEmote, object: BotEmote.surprised)
+        let tuckBack = DispatchWorkItem { [weak self] in
+            guard let self, self.state.view == .note, self.state.mode == .expanded else { return }
+            self.collapse()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 8, execute: tuckBack)
     }
 
     // MARK: - Bot hit test (for slap trigger)
