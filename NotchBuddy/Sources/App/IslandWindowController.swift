@@ -44,16 +44,12 @@ final class IslandWindowController: NSWindowController {
     private var notchH: CGFloat = IslandConst.notchHeight
 
     convenience init() {
-        let screen = Self.notchScreen() ?? NSScreen.main!
+        let screen = Self.targetScreen()
         let nW = Self.notchWidth(for: screen)
         let nH = Self.notchHeight(for: screen)
 
-        let panelW: CGFloat = 720
-        let panelH: CGFloat = 320
-        let sf = screen.frame
         let panel = IslandPanel(
-            contentRect: NSRect(x: sf.midX - panelW/2, y: sf.maxY - panelH,
-                                width: panelW, height: panelH),
+            contentRect: Self.panelFrame(on: screen),
             styleMask: [.borderless, .nonactivatingPanel],
             backing: .buffered, defer: false
         )
@@ -481,6 +477,12 @@ final class IslandWindowController: NSWindowController {
             self.showReminderDue(title: title)
         }
 
+        // Displays plugged/unplugged/rearranged or main display changed → move the island back to the top
+        NotificationCenter.default.addObserver(forName: NSApplication.didChangeScreenParametersNotification,
+                                               object: nil, queue: .main) { [weak self] _ in
+            self?.repositionToTargetScreen()
+        }
+
         // Track last external app for window context capture
         let ourBundle = Bundle.main.bundleIdentifier ?? ""
         NSWorkspace.shared.notificationCenter.addObserver(
@@ -793,10 +795,42 @@ final class IslandWindowController: NSWindowController {
         NSScreen.screens.first { $0.safeAreaInsets.top > 0 }
     }
 
+    /// The display the island lives on: the one with the menu bar (System Settings → Displays → "Main display").
+    /// With the lid open and no external monitor this is the notch screen; with an external monitor set as
+    /// main, the island sits top-centre on that monitor instead of staying behind on the laptop.
+    static func targetScreen() -> NSScreen {
+        NSScreen.screens.first ?? NSScreen.main ?? notchScreen()!
+    }
+
+    static let panelSize = NSSize(width: 720, height: 320)
+
+    /// Panel glued to the top edge, horizontally centred, in global AppKit coordinates.
+    static func panelFrame(on screen: NSScreen) -> NSRect {
+        let sf = screen.frame
+        return NSRect(x: sf.midX - panelSize.width / 2, y: sf.maxY - panelSize.height,
+                      width: panelSize.width, height: panelSize.height)
+    }
+
+    /// Re-anchor after displays are plugged/unplugged, rearranged, or the main display changes.
+    /// Without this the panel keeps the coordinates of the old layout and floats mid-screen.
+    private func repositionToTargetScreen() {
+        let screen = Self.targetScreen()
+        notchW = Self.notchWidth(for: screen)
+        notchH = Self.notchHeight(for: screen)
+        islandPanel.notchWidth  = notchW
+        islandPanel.notchHeight = notchH
+        state.notchWidth  = notchW
+        state.notchHeight = notchH
+        islandPanel.setFrame(Self.panelFrame(on: screen), display: true)
+    }
+
     static func notchWidth(for screen: NSScreen) -> CGFloat {
-        let aux = (screen.auxiliaryTopLeftArea?.width ?? 0) +
-                  (screen.auxiliaryTopRightArea?.width ?? 0)
-        let w = screen.frame.width - aux
+        // No notch (external monitor, older Mac): auxiliary areas are nil → use the default pill width,
+        // not the full screen width.
+        guard let left = screen.auxiliaryTopLeftArea, let right = screen.auxiliaryTopRightArea else {
+            return IslandConst.notchWidth
+        }
+        let w = screen.frame.width - left.width - right.width
         return w > 0 ? w : IslandConst.notchWidth
     }
 
